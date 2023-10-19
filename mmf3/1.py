@@ -41,37 +41,4 @@ for i in range (0,110,10):
     e,f=exp_to_the_power_of(i,eps)
     cols1=(str(i),str('{:e}'.format(b)),str('{:e}'.format(d)),str('{:e}'.format(f)),str(a))
     file1.write('\t'.join(cols1)+'\n')
-def exp_series_alt(x, epsilon):
-    k=1
-    result = 1.0
-    member = 1.0
-    while abs(member) > epsilon:
-        member *= -x/k
-        result += member
-        k += 1
-    return k,result
 
-def exp_recursion_alt(x, epsilon): 
-    k = 1
-    result = 1.0
-    member = 1.0
-    while abs(member) > epsilon:
-        member = ((-1)**k)*(x**k)/math.factorial(k)
-        result += member
-        k += 1    
-    return k, result
-
-def  exp_to_the_power_of_alt(x, epsilon): 
-    k = 1
-    member = 1.0
-    result = 1.0
-    while abs(member) > epsilon:
-        member = (x**k)/math.factorial(k)
-        result += member
-        k += 1
-    return k, 1/result
-
-'''exp_series_alt(20,eps)9'''
-
-
-file1.close()
