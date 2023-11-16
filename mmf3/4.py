@@ -4,20 +4,20 @@ a = np.array([[4, -2, 1],[3, 6, -4],[2, 1, 8]])
 b = np.array([20, -30, 40])
 x = np.linalg.solve(a, b)
 '''
-n = 7
-a = [1, 2, 3, 4, 5, 6]#in the first eqation there is no a that is why its a 0
-b = [2, 4, 6, 8, 6, 4, 2]
-c = [6, 5, 4, 3, 2, 1]
-d = [0, 1, 2, 3, 2, 1, 0]
+n = 4
+a = [-2, -2, -2]#in the first eqation there is no a that is why its a 0
+b = [4, 6, 6, 8]
+c = [-2, -2, -2]
+d = [5, 0, 0, 0]
 
 #xj+ej*xj+1=fj
 #ej+1 = (cj+1)/(bj+1 - aj+1*ej)
 #fj+1 = (bj+1 - aj+1*fj)/(bj+1 - aj+1*ej)
 #all for (ai*ei-1 - bi)*xi = ai*fi-1 - bi
 
-e = [0, 0, 0, 0, 0, 0, 0]
-f = [0, 0, 0, 0, 0, 0, 0]
-x = [0, 0, 0, 0, 0, 0, 0]
+e = [0, 0, 0, 0]
+f = [0, 0, 0, 0]
+x = [0, 0, 0, 0]
 
 e[0] = c[0] / b[0]
 f[0] = d[0] / b[0]

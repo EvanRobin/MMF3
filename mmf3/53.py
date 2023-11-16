@@ -44,5 +44,4 @@ rA_dots = np.arange(rA[0], rA[-1], 0.1)
 
 cs = CubicSpline(rA, vK)
 
-plt.scatter(rA_dots, cs(rA_dots))
-plt.show()
+cs(rA_dots)

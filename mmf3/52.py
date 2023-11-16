@@ -51,7 +51,7 @@ def write_list(file_name, convert=float, sep=None):
 rA = write_list('V(H-H)_AK.txt')[0]#ovo je x
 vK = write_list('V(H-H)_AK.txt')[1]#ovo je y
     
-rA_dots_uncut = np.arange(rA[0], rA[-1], 0.1)
+rA_dots_uncut = np.arange(rA[0], rA[-1], (9.81 - 2.81)/70)
 
 
 rA_dots = []
@@ -127,7 +127,7 @@ def der_pot(r):
 
 
 
-der_numerical = (pvKP[1] - pvKP[0]) / 0.1
+der_numerical = (vK[1] - vK[0]) / (rA[1] - vK[0])
 
      
 cs = CubicSpline(rA, vK, bc_type=((1, der_numerical),(1, der_pot(rA_dots[-1]))))
@@ -148,6 +148,30 @@ plt.show()
 dif = []
 for i in range (0, len(rA_dots)):
      dif.append(abs(cs(rA_dots)[i] - pvKP[i]))
-print(dif)
+
 plt.plot(rA_dots, dif)
 plt.show()
+
+
+file1 = open("V(H-H)_inter.txt","a")
+file1.truncate(0) #ovo brise
+cols=("r", "            yL", "            yp", "            dyp", "             ys", "            yp - ys")
+file1.write('\t'.join(cols)+'\n')
+
+def error(a,b):
+    return abs(a-b)
+
+
+
+
+
+for i in range (0,len(rA_dots)):
+    line=[]
+    line.append('{:e}'.format(rA_dots[i]))
+    line.append('{:e}'.format(l(rA, vK, rA_dots[i])))
+    line.append('{:e}'.format(polint(rA, vK, len(rA) ,rA_dots[i])[0]))
+    line.append('{:e}'.format(polint(rA, vK, len(rA) ,rA_dots[i])[1]))
+    line.append('{:e}'.format(cs(rA_dots)[i]))
+    line.append('{:e}'.format(error(polint(rA, vK, len(rA) ,rA_dots[i])[0],cs(rA_dots)[i])))
+    file1.write('\t'.join(str(item) for item in line) + '\n')
+
