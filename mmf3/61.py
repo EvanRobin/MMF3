@@ -31,7 +31,6 @@ def gauleg(x_1, x_2, n):
     return x, w
 
 def int_gauleg(function, a, b, m):
-    '''Metoda rjesavanja odredenog integrala koristeci Gauss-Legendrovu kvadraturu.'''
     x, w = gauleg(a, b, m)[0], gauleg(a, b, m)[1]
     rez = 0.0
     for i in range(len(x)):
@@ -39,7 +38,6 @@ def int_gauleg(function, a, b, m):
     return rez 
 
 def int_trapezoidal(function, a, b, m):
-    '''Trapezna formula'''
     h = (b - a)/m 
     f_a = function(a)
     f_b = function(b)
@@ -52,7 +50,6 @@ def int_trapezoidal(function, a, b, m):
 
 
 def int_Simpson(function, a, b, m):
-    '''Simpsonova metoda'''
     h = (b - a)/m
     f_a = function(a)
     f_b = function(b)
