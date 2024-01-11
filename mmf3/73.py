@@ -86,7 +86,7 @@ def JUG(t0, X0, V0, acceleration, N, tN):
         for j in range(N):
             V[i, j+1] = V[i, j] + h*A[i, j]
             X[i, j+1] = X[i, j] + h*V[i, j] + 0.5*(h**2)*A[i, j]
-            A[i, j+1] = acceleration(T[j], X[:, j], V[:, j])[i]
+            A[i, j+1] = acceleration(T[j+1], X[:, j+1], V[:, j+1])[i]
             T[j+1] = (j+1)*h
     return T, X, V, A
 
@@ -120,8 +120,8 @@ X_JUG, V_JUG = JUG(t0, X0_3D, V0_3D, fun_3D, N, tN)[1][0], JUG(t0, X0_3D, V0_3D,
 fig = plt.figure(figsize=(7,6), dpi=120)
 axes = fig.add_axes([0.15, 0.15, 0.75, 0.70])
 plt.rcParams.update({'font.size': 8})
-axes.plot(X_En, V_En, color='blue')
-axes.plot(X_JUG, V_JUG, color='red')
-axes.plot(X_RK, V_RK, color='green')
+axes.plot(X_En, V_En, color='red')
+axes.plot(X_JUG, V_JUG, color='yellow')
+axes.plot(X_RK, V_RK, color='black')
 axes.grid(lw=0.5)
 plt.show()

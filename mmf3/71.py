@@ -73,7 +73,7 @@ def analiticko(t, x, v):
 def numericko(t, x, v):
     return -g/l*np.sin(x)
 
-T = 2*np.pi*np.sqrt(l/g) #period
+T = 2*np.pi*np.sqrt(l/g)
 t1 = 1*T
 t2 = 20*T
 
@@ -86,36 +86,27 @@ for i in np.arange(t1, t2+1e-5, 1e-5):
 
 '''
 fig = plt.figure(figsize=(11,5), dpi=110)
+axes = fig.add_axes([0.10, 0.10, 0.80, 0.80])
+plt.rcParams.update({'font.size': 9})           
+axes.plot(Euler(0.0 , y0_r, v0, numericko, 100000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 100000, t2)[1], color='blue', lw=1.5)
+axes.plot(Euler(0.0 , y0_r, v0, numericko, 10000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 10000, t2)[1], color='green', lw=1.5)
+axes.plot(Runge_Kutta(0.0 , y0_r, v0, numericko, 100000, t2)[0], Runge_Kutta(0.0 , y0_r, v0, numericko, 100000, t2)[1], color='yellow')
+axes.plot(Runge_Kutta(0.0 , y0_r, v0, numericko, 10000, t2)[0], Runge_Kutta(0.0 , y0_r, v0, numericko, 10000, t2)[1], color='red')
+plt.show()
+'''
+'''
+fig = plt.figure(figsize=(11,5), dpi=110)
 axes = fig.add_axes([0.15, 0.15, 0.75, 0.70])
 plt.rcParams.update({'font.size': 9})          
-axes.plot(Euler(0.0 , y0_r, v0, numericko, 1000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 1000, t2)[1],
-          color='blue')
-axes.plot(Euler(0.0 , y0_r, v0, numericko, 5000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 5000, t2)[1],
-          color='green')
-axes.plot(Euler(0.0 , y0_r, v0, numericko, 10000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 10000, t2)[1],
-          color='orange')
+axes.plot(Euler(0.0 , y0_r, v0, numericko, 10000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 10000, t2)[1], color='blue')
+axes.plot(Euler(0.0 , y0_r, v0, numericko, 50000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 50000, t2)[1], color='green')
+axes.plot(Euler(0.0 , y0_r, v0, numericko, 100000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 100000, t2)[1], color='orange')
 axes.plot(t, theta, color='purple')
 axes.set_xlim(t1, t2)
 plt.show()
 '''
 
-'''
-fig = plt.figure(figsize=(11,5), dpi=110)
-axes = fig.add_axes([0.15, 0.15, 0.75, 0.70])
-plt.rcParams.update({'font.size': 9})           
-axes.plot(Euler(0.0 , y0_r, v0, numericko, 100000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 100000, t2)[1],
-          color='blue', lw=1.5, label='Euler $N = 100000$')
-axes.plot(Euler(0.0 , y0_r, v0, numericko, 10000, t2)[0], Euler(0.0 , y0_r, v0, numericko, 10000, t2)[1],
-          color='purple', lw=1.5, label='Euler $N/10 = 10000$')
-axes.plot(Runge_Kutta(0.0 , y0_r, v0, numericko, 100000, t2)[0], Runge_Kutta(0.0 , y0_r, v0, numericko, 100000, t2)[1],
-          color='orange')
-axes.plot(Runge_Kutta(0.0 , y0_r, v0, numericko, 10000, t2)[0], Runge_Kutta(0.0 , y0_r, v0, numericko, 10000, t2)[1],
-          color='red')
-plt.show()
-'''
-
-
-'''
+''''''
 t = []
 theta_4 = []
 theta_8 = []
@@ -131,14 +122,9 @@ for i in np.arange(0.0, 7*T+1e-5, 1e-5):
 fig = plt.figure(figsize=(11,5), dpi=110)
 axes = fig.add_axes([0.15, 0.15, 0.75, 0.70])
 plt.rcParams.update({'font.size': 9})          
-axes.plot(Runge_Kutta(0.0 , y0_r, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r, v0, numericko, 1e5, 7*T)[1],
-          color='green')
-axes.plot(Runge_Kutta(0.0 , y0_r*2, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r*2, v0, numericko, 1e5, 7*T)[1],
-          color='red')
-axes.plot(Runge_Kutta(0.0 , y0_r*4, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r*4, v0, numericko, 1e5, 7*T)[1],
-          color='yellow')
-axes.plot(Runge_Kutta(0.0 , y0_r*8, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r*8, v0, numericko, 1e5, 7*T)[1],
-          color='blue', linestyle='--')
+axes.plot(Runge_Kutta(0.0 , y0_r, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r, v0, numericko, 1e5, 7*T)[1], color='green')
+axes.plot(Runge_Kutta(0.0 , y0_r*2, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r*2, v0, numericko, 1e5, 7*T)[1], color='red')
+axes.plot(Runge_Kutta(0.0 , y0_r*4, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r*4, v0, numericko, 1e5, 7*T)[1], color='yellow')
+axes.plot(Runge_Kutta(0.0 , y0_r*8, v0, numericko, 1e5, 7*T)[0], Runge_Kutta(0.0 , y0_r*8, v0, numericko, 1e5, 7*T)[1], color='blue', linestyle='--')
 axes.plot(t, theta_32, color='blue')
 plt.show()
-'''
