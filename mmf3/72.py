@@ -60,11 +60,20 @@ def Runge_Kutta(t0, x0, v0, function, N, tN):
     return T, X, V, A
 
 def Euler_n(X0, function, N, xN):
-    n = len(X0)
-    h = (xN-X0[0])/N
-    X = np.zeros((n+1, N+1))
-    X[:-1, 0] = X0
-    X[-1, 0] = function(X0)
+    '''
+    Eulerova metoda za rjesavanje obicnih diferencijalnih jednadzbi n-tog
+    reda za jednodimenzionalni problem.
+    \n
+    \nX0 ---------- vektor pocetnih uvjeta
+    \nfunction ---- funkcija derivacije n-tog reda
+    \nN ----------- broj intervala
+    \nxN ---------- krajnja vrijednost
+    '''
+    n = len(X0) #red diferencijalne jednadzbe
+    h = (xN-X0[0])/N #korak
+    X = np.zeros((n+1, N+1)) #matrica rjesenja
+    X[:-1, 0] = X0 #dodavanje pocetnih uvjeta
+    X[-1, 0] = function(X0) #dodavanje vrijednosti derivacije n-tog reda
     for i in range(N):
         X[0, i+1] = (i+1)*h
         X[1:-1, i+1] = X[1:-1, i]+h*X[2:, i]

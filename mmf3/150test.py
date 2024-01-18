@@ -63,43 +63,59 @@ def dif(g_x, xt0_N, R, D, met):
 
 sys.getdefaultencoding()
 
-D = 1.0
-t = [0.0, 4.0, 8.0]
+'''
+ 15. [5+3+2] Sve su veliˇ cine dane u SI jedinicama. Koriste´ ci eksplicitnu shemu na¯ dite rješenja parcijalne
+ diferencijalne jednadžbe
+ ∂ρ(x,t)
+ ∂t
+ =0.02· ∂2ρ(x,t)
+ ∂x2 .
+ a) Rubne uvjete ρ(0,t) i ρ(20,t) uˇ citajte redom iz prvog i drugog stupca priložene datoteke (redni broj retka
+ predstavlja trenutak j = t/0.5 > 0). Za poˇ cetni uvjet uzmite ρ(x,0) = −0.1x2 + 2x.
+ b) Na istom grafu usporedite rješenja dobivena u trenucima t = j∆t za j = 150,300,450 i ∆t = 0.5.
+ c) Koliki ∆x ima smisla uzeti? Što se doga¯ da s rubovima i šiljkom poˇ cetnog oblika gusto´ ce?
+'''
+
+D = 0.02
+
+dt = 0.5
 dx = 0.1
-dt = (dx**2)/2
+t = [0.0*dt, 150.0*dt, 300.0*dt, 400.0*dt]
 
 def rho(x):
-    if x >= -5.0 and x <= 5.0:
-        return 25*(x*2)-(x*4)
+    if x >= 0.0 and x <= 20.0:
+        return -0.1*x**2 + 2*x
     else:
         return 0.0
 
-P0 = [-15.0, 15.0, 0.0, t[0], dx, dt]
-P4 = [-15.0, 15.0, 0.0, t[1], dx, dt]
-P8 = [-15.0, 15.0, 0.0, t[2], dx, dt]
+
+
+P1 = [0.0, 20.0, 0.0, t[0], dx, dt]
+P2 = [0.0, 20.0, 0.0, t[1], dx, dt]
+P3 = [0.0, 20.0, 0.0, t[2], dx, dt]
+P4 = [0.0, 20.0, 0.0, t[3], dx, dt]
 rub = [0.0, 0.0]
 
-exp0 = dif(rho, P0, rub, D, 'exp')
+exp1 = dif(rho, P1, rub, D, 'exp')
+exp2 = dif(rho, P2, rub, D, 'exp')
+exp3 = dif(rho, P3, rub, D, 'exp')
 exp4 = dif(rho, P4, rub, D, 'exp')
-exp8 = dif(rho, P8, rub, D, 'exp')
-imp0 = dif(rho, P0, rub, D, 'imp')
-imp4 = dif(rho, P4, rub, D, 'imp')
-imp8 = dif(rho, P8, rub, D, 'imp')
 
-X = [x for x in np.arange(-15.0, 15.0+dx, dx)]
+X = [x for x in np.arange(0.0, 20.0+dx, dx)]
 
 fig = plt.figure(figsize=(7,5), dpi=120)
 axes = fig.add_axes([0.10, 0.10, 0.85, 0.85])
 plt.rcParams.update({'font.size': 8}) #type:ignore
-axes.plot(X, exp0, label='eksplicitno, t={}s'.format(int(t[0])), lw=1.5, color='green')
-axes.plot(X, exp4, label='eksplicitno, t={}s'.format(int(t[1])), lw=1.5, color='green', linestyle='-')
-axes.plot(X, exp8, label='eksplicitno, t={}s'.format(int(t[2])), lw=1.5, color='green', linestyle='--')
-axes.plot(X, imp0, label='implicitno, t={}s'.format(int(t[0])), lw=1.5, color='red')
-axes.plot(X, imp4, label='implicitno, t={}s'.format(int(t[1])), lw=1.5, color='red', linestyle='-.')
-axes.plot(X, imp8, label='implicitno, t={}s'.format(int(t[2])), lw=1.5, color='red', linestyle=':')
+axes.plot(X, exp1, lw=1.5, color='green')
+axes.plot(X, exp2, lw=1.5, color='green', linestyle='-')
+axes.plot(X, exp3, lw=1.5, color='green', linestyle='--')
+axes.plot(X, exp4, lw=1.5, color='red')
+
+
 axes.grid(lw=0.4)
 axes.set_xlabel('x / m')
 axes.set_ylabel('$\u03C1(x,t)$ / kgm$^{-1}$')
 axes.legend(loc='best')
 axes.set_title('Difuzija')
 plt.show()
+

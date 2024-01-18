@@ -63,6 +63,20 @@ def dif(g_x, xt0_N, R, D, met):
 
 sys.getdefaultencoding()
 
+'''
+11. [(3+3)+2+2] Linearna gusto´ ca tvari unutar 1D prostora opisana je jednadžbom
+ ∂ρ(x,t)
+ ∂t
+ =1m2s−1 ∂2ρ(x,t)
+ ∂x2 .
+ (2.1)
+ 2
+a) Prilagodite programe koji uz pomo´ c eksplicitne i implicitne sheme rješavaju (2.1) za sluˇ caja kada je
+ ρ(±5 m,t) = 0 te ρ(x,0) = 25kgm−3·x2−1kgm−5·x4 ; x∈[−5m,5m]
+ 0.0 kg / m
+ ;
+ x / ∈ [−5 m,5 m] 
+''' 
 D = 1.0
 t = [0.0, 4.0, 8.0]
 dx = 0.1
@@ -74,9 +88,9 @@ def rho(x):
     else:
         return 0.0
 
-P0 = [-15.0, 15.0, 0.0, t[0], dx, dt]
-P4 = [-15.0, 15.0, 0.0, t[1], dx, dt]
-P8 = [-15.0, 15.0, 0.0, t[2], dx, dt]
+P0 = [-15.0, 15.0, 0.0, 0, dx, dt]
+P4 = [-15.0, 15.0, 0.0, 4, dx, dt]
+P8 = [-15.0, 15.0, 0.0, 8, dx, dt]
 rub = [0.0, 0.0]
 
 exp0 = dif(rho, P0, rub, D, 'exp')
@@ -86,20 +100,19 @@ imp0 = dif(rho, P0, rub, D, 'imp')
 imp4 = dif(rho, P4, rub, D, 'imp')
 imp8 = dif(rho, P8, rub, D, 'imp')
 
-X = [x for x in np.arange(-15.0, 15.0+dx, dx)]
+X = [x/dx for x in np.arange(-15.0, 15.0+dx, dx)]
 
+'''
 fig = plt.figure(figsize=(7,5), dpi=120)
 axes = fig.add_axes([0.10, 0.10, 0.85, 0.85])
 plt.rcParams.update({'font.size': 8}) #type:ignore
-axes.plot(X, exp0, label='eksplicitno, t={}s'.format(int(t[0])), lw=1.5, color='green')
-axes.plot(X, exp4, label='eksplicitno, t={}s'.format(int(t[1])), lw=1.5, color='green', linestyle='-')
-axes.plot(X, exp8, label='eksplicitno, t={}s'.format(int(t[2])), lw=1.5, color='green', linestyle='--')
-axes.plot(X, imp0, label='implicitno, t={}s'.format(int(t[0])), lw=1.5, color='red')
-axes.plot(X, imp4, label='implicitno, t={}s'.format(int(t[1])), lw=1.5, color='red', linestyle='-.')
-axes.plot(X, imp8, label='implicitno, t={}s'.format(int(t[2])), lw=1.5, color='red', linestyle=':')
-axes.grid(lw=0.4)
-axes.set_xlabel('x / m')
+axes.plot(X, D1, label='t = {}$\u0394$t'.format(0.4), lw=1.4, color='purple')
+axes.plot(X, D2, label='t = {}$\u0394$t'.format(8), lw=1.4, color='blue')
+axes.grid(lw=0.5)
+axes.set_xlabel('x / $\u0394$x')
 axes.set_ylabel('$\u03C1(x,t)$ / kgm$^{-1}$')
 axes.legend(loc='best')
 axes.set_title('Difuzija')
 plt.show()
+'''
+print(len(exp4),len(imp8),len(X))
